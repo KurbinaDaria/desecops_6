@@ -81,7 +81,7 @@ jobs:
           path: .
 
       - name: Install Grype
-        uses: anchore/grype-action@v0.74.8
+        uses: anchore/grype-action@v0
 
       - name: Scan SBOM with Grype
         run: |
