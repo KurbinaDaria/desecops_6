@@ -36,15 +36,14 @@ def select_ip_list():
     return cursor.fetchall()
 
 
-
 cursor, connection = get_cursor()
 cursor = connection.cursor()
 query = "SELECT `path`, `login`, `passwd` FROM `view_support_path_default`"
 cursor.execute(query)
 link_list = cursor.fetchall()
 
-#link_list = []
-#for i in rows:
+# link_list = []
+# for i in rows:
 #    link_list.append(i[0])
 
 
@@ -83,7 +82,8 @@ def main():
     for link in link_list:
         rtsp_list = []
         for ip in select_ip_list():
-            rtsp_list.append([link[0].replace('ip_for_replace', ip[0]), ip[0], ip[1], link[1], link[2]])
+            rtsp_list.append(
+                [link[0].replace('ip_for_replace', ip[0]), ip[0], ip[1], link[1], link[2]])
 
         start = time.time()
         with Pool(processes=200) as p:
@@ -93,7 +93,7 @@ def main():
         sl_tm = 300 - int((end - start))
         print(sl_tm)
         if sl_tm > 0:
-            time.sleep(sl_tm) # чекаємо 5 хв
+            time.sleep(sl_tm)  # чекаємо 5 хв
 
 
 if __name__ == "__main__":
@@ -105,6 +105,9 @@ if __name__ == "__main__":
     CHAT_ID = '-1001533673238'
     SEND_URL = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
 
-    requests.post(SEND_URL, json={'chat_id': CHAT_ID, 'text': f"41_scan_stream_default done - {int(done)}"})
+    requests.post(
+        SEND_URL,
+        json={
+            'chat_id': CHAT_ID,
+            'text': f"41_scan_stream_default done - {int(done)}"})
     substream.main()
-    
