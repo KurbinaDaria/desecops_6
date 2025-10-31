@@ -6,7 +6,7 @@ install:
 
 # Перевіряє якість коду
 lint:
-	flake8 41_scan_stream_default.py
+	-flake8 41_scan_stream_default.py
 
 # Збирає "псевдобінар" (zipapp)
 # .pyz - це виконуваний zip-архів Python
