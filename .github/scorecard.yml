@@ -1,0 +1,32 @@
+name: OSSF Scorecard
+
+on:
+  push:
+    branches: [ main, stage ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  security-events: write # Потрібно для завантаження результатів
+  # ... інші дозволи, якщо потрібні для 'checkout'
+  actions: read
+  contents: read
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run Scorecard analysis
+        uses: ossf/scorecard-action@v2.3.1
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          # GITHUB_TOKEN автоматично надається
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_results: true
